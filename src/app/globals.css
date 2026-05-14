@@ -1,26 +1,110 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: var(--primary);
+  --color-primary-fg: var(--primary-fg);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-fg: var(--muted-fg);
+  --color-border: var(--border);
+  
+  --color-success: var(--success);
+  --color-success-fg: var(--success-fg);
+  --color-warning: var(--warning);
+  --color-warning-fg: var(--warning-fg);
+  --color-destructive: var(--destructive);
+  --color-destructive-fg: var(--destructive-fg);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #0B5ED7;
+  --primary-fg: #ffffff;
+  --accent: #E3F3FF;
+  --accent-fg: #0B5ED7;
+  --bg: #ffffff;
+  --fg: #1a1a2e;
+  --card: #f9fafb;
+  --muted: #f3f4f6;
+  --muted-fg: #6b7280;
+  --border: #e5e7eb;
+  
+  --success: #ecfdf5;
+  --success-fg: #047857;
+  --warning: #fffbeb;
+  --warning-fg: #b45309;
+  --destructive: #ef4444;
+  --destructive-fg: #ffffff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --primary: #3b82f6;
+  --primary-fg: #ffffff;
+  --accent: #1e3a8a;
+  --accent-fg: #bfdbfe;
+  --bg: #0d1017;
+  --fg: #ffffff;
+  --card: #111827;
+  --muted: #1f2937;
+  --muted-fg: #9ca3af;
+  --border: #374151;
+  
+  --success: #064e3b;
+  --success-fg: #34d399;
+  --warning: #78350f;
+  --warning-fg: #fbbf24;
+  --destructive: #7f1d1d;
+  --destructive-fg: #fca5a5;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  height: 100%;
+}
+
+@layer base {
+  h1, h2, h3 {
+    @apply font-bold tracking-tight;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.slide-container {
+  @apply relative w-full h-full flex flex-col p-12 md:p-20 overflow-hidden transition-colors duration-500 bg-bg text-fg;
+}
+
+/* Print styles for PDF export */
+@media print {
+  @page {
+    size: 11in 8.5in; /* Standard US Letter Landscape, forces landscape in Chrome */
+    margin: 0;
+  }
+  html, body {
+    width: 11in;
+    height: 8.5in;
+    overflow: visible !important;
+    background: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-page {
+    page-break-after: always;
+    page-break-inside: avoid;
+    width: 11in;
+    height: 8.5in;
+    display: flex !important;
+    visibility: visible !important;
+    position: relative;
+    overflow: hidden;
+  }
 }
