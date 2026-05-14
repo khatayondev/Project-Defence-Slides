@@ -66,12 +66,13 @@ html, body {
   overflow: hidden;
   background-color: var(--bg);
   color: var(--fg);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-poppins), 'Poppins', system-ui, sans-serif;
   height: 100%;
 }
 
 @layer base {
   h1, h2, h3 {
+    font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
     @apply font-bold tracking-tight;
   }
 }
