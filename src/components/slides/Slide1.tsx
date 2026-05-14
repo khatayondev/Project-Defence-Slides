@@ -26,14 +26,14 @@ export default function Slide1() {
     >
       <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-accent to-primary" />
       
-      <motion.div variants={item} className="mb-8 flex flex-col items-center">
-        <div className="relative w-32 h-32 mb-6 drop-shadow-xl hover:scale-105 transition-transform">
+      <motion.div variants={item} className="mb-16 flex flex-col items-center">
+        <div className="relative w-56 h-56 mb-10 drop-shadow-2xl hover:scale-105 transition-transform duration-500">
           <Image src="/htu-logo.png" alt="HTU Logo" fill className="object-contain" priority />
         </div>
-        <h3 className="text-xl md:text-2xl font-bold text-primary tracking-[0.2em] uppercase mb-4">
+        <h3 className="text-3xl md:text-4xl font-black text-primary tracking-[0.3em] uppercase mb-4">
           Ho Technical University
         </h3>
-        <p className="text-muted-fg font-medium tracking-wide">
+        <p className="text-xl text-muted-fg font-semibold tracking-widest uppercase opacity-80">
           Faculty of Applied Sciences and Technology<br />
           Bachelor of Technology in Computer Science
         </p>
