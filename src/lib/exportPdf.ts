@@ -1,10 +1,10 @@
 import { jsPDF } from "jspdf";
-import html2canvas from "html2canvas-pro";
+import { toJpeg } from "html-to-image";
 
 /**
- * Generates a full landscape PDF of all 12 presentation slides.
+ * Generates a full landscape PDF of all presentation slides.
  * Each slide is rendered at 1920×1080 in an off-screen fixed container,
- * captured via html2canvas, then assembled into a jsPDF document.
+ * captured via html-to-image, then assembled into a jsPDF document.
  */
 export async function generatePDF(
   slideComponents: React.ComponentType[],
@@ -34,7 +34,7 @@ export async function generatePDF(
     --border:#e5e7eb;
   `;
 
-  // Fixed container just above the viewport — html2canvas can still read it
+  // Fixed container just above the viewport
   const offscreen = document.createElement("div");
   offscreen.style.cssText = `
     position: fixed;
@@ -63,6 +63,7 @@ export async function generatePDF(
         height: ${SLIDE_H}px;
         overflow: hidden;
         position: relative;
+        background: #ffffff;
       `;
       offscreen.innerHTML = "";
       offscreen.appendChild(wrapper);
@@ -78,23 +79,16 @@ export async function generatePDF(
       );
 
       // Wait for render, images, and spring animations to settle
-      await new Promise<void>((resolve) => setTimeout(resolve, 1200));
+      await new Promise<void>((resolve) => setTimeout(resolve, 1500));
 
       // Capture
-      const canvas = await html2canvas(wrapper, {
+      const imgData = await toJpeg(wrapper, {
+        quality: 0.95,
         width: SLIDE_W,
         height: SLIDE_H,
-        scale: 1,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: "#ffffff",
-        logging: false,
-        // Scroll to the offscreen element so html2canvas can find it
-        scrollX: 0,
-        scrollY: 0,
+        backgroundColor: '#ffffff',
+        pixelRatio: 2 // Higher resolution for crisp text
       });
-
-      const imgData = canvas.toDataURL("image/jpeg", 0.92);
 
       if (i > 0) pdf.addPage([PDF_W_MM, PDF_H_MM], "landscape");
       pdf.addImage(imgData, "JPEG", 0, 0, PDF_W_MM, PDF_H_MM);
