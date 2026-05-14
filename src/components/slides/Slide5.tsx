@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 
+import { Settings, FileText, PlugZap } from "lucide-react";
+
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -55,39 +57,69 @@ export default function Slide5() {
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full h-full pt-4">
-        {literature.map((item, i) => (
+        {[
+          {
+            title: "Systemic Gaps",
+            desc: "The existing digital framework is functionally insufficient, acting as a static database rather than an active workflow tool.",
+            icon: <Settings size={40} className="text-primary" />
+          },
+          {
+            title: "Manual Dependencies",
+            desc: "Key processes like supervisor onboarding and rubric-based grading remain manual, relying on paper logbooks and physical signatures.",
+            icon: <FileText size={40} className="text-primary" />
+          },
+          {
+            title: "Operational Silos",
+            desc: "Lack of real-time GPS monitoring and microservice integration compromises data integrity and administrative efficiency.",
+            icon: <PlugZap size={40} className="text-primary" />
+          }
+        ].map((problem, i) => (
           <motion.div 
             key={i} 
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 100, damping: 15 } }
-            }} 
-            className="flex h-full group"
+            variants={item}
+            className="bg-card border border-primary/20 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:border-primary/50 transition-all flex flex-col h-full group"
           >
-            <div className={`flex flex-col flex-1 rounded-2xl p-8 relative overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${
-              item.highlight 
-                ? 'bg-primary text-primary-fg shadow-lg shadow-primary/30' 
-                : 'bg-card border border-primary/20 hover:border-primary/50'
-            }`}>
-              
-              {item.highlight && (
-                <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-bl-full" />
-              )}
-              
-              <h3 className={`text-3xl font-bold mb-6 ${item.highlight ? 'text-white' : 'text-fg'}`}>
-                {item.title}
-              </h3>
-              
-              <p className={`text-sm font-bold uppercase tracking-wider mb-4 ${item.highlight ? 'text-primary-fg/80' : 'text-primary'}`}>
-                {item.author}
-              </p>
-              <p className={`text-2xl leading-relaxed font-medium ${item.highlight ? 'text-white' : 'text-muted-fg'}`}>
-                {item.text}
-              </p>
+            <div className="text-4xl mb-6 group-hover:scale-125 transition-transform origin-left">
+              {problem.icon}
             </div>
+            <h3 className="text-2xl font-black text-fg mb-4">
+              {problem.title}
+            </h3>
+            <p className="text-xl text-muted-fg leading-relaxed font-medium">
+              {problem.desc}
+            </p>
           </motion.div>
         ))}
       </div>
+
+      <motion.div variants={item} className="w-full mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="p-8 bg-red-500/5 border border-red-500/20 rounded-2xl">
+          <p className="text-red-500 font-black text-sm uppercase tracking-widest mb-4 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+            Impact on Students
+          </p>
+          <ul className="space-y-3">
+            {["No structured daily reporting tool", "Paper-based logbooks easily lost", "No visibility into grading criteria"].map((txt, i) => (
+              <li key={i} className="text-fg font-bold flex items-center gap-3">
+                <span className="text-red-500">✕</span> {txt}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="p-8 bg-red-500/5 border border-red-500/20 rounded-2xl">
+          <p className="text-red-500 font-black text-sm uppercase tracking-widest mb-4 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+            Impact on Admin
+          </p>
+          <ul className="space-y-3">
+            {["Difficult to track student placements", "No real-time attendance monitoring", "Manual reporting for accreditation"].map((txt, i) => (
+              <li key={i} className="text-fg font-bold flex items-center gap-3">
+                <span className="text-red-500">✕</span> {txt}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </motion.div>
     </motion.div>
   );
 }

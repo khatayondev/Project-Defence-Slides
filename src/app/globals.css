@@ -60,6 +60,53 @@
   --destructive-fg: #fca5a5;
 }
 
+:root {
+  --blue-50:#E6F1FB;--blue-100:#C8DEFA;--blue-600:#185FA5;--blue-700:#1257A0;--blue-800:#0C447C;--blue-400:#378ADD;--blue-main:#2563EB;
+  --purple-50:#EEEDFE;--purple-600:#534AB7;--purple-800:#3C3489;
+  --teal-50:#E1F5EE;--teal-600:#0F6E56;--teal-800:#085041;
+  --amber-50:#FAEEDA;--amber-600:#854F0B;--amber-800:#633806;
+  --coral-50:#FAECE7;--coral-600:#993C1D;--coral-800:#712B13;
+  --green-50:#EAF3DE;--green-600:#3B6D11;--green-800:#27500A;
+  --red-50:#FCEBEB;--red-600:#A32D2D;--red-800:#791F1F;
+  --gray-50:#F1EFE8;--gray-400:#888780;--gray-600:#5F5E5A;--gray-800:#444441;
+  --bg2:#F7F6F2;--text:#1a1a18;--text2:#5F5E5A;--bdr:rgba(0,0,0,0.15);--arr:#888780;
+}
+
+.dark {
+  --blue-50:#042C53;--blue-600:#378ADD;--blue-800:#B5D4F4;
+  --purple-50:#26215C;--purple-600:#7F77DD;--purple-800:#CECBF6;
+  --teal-50:#04342C;--teal-600:#1D9E75;--teal-800:#9FE1CB;
+  --amber-50:#412402;--amber-600:#EF9F27;--amber-800:#FAC775;
+  --coral-50:#4A1B0C;--coral-600:#D85A30;--coral-800:#F5C4B3;
+  --green-50:#173404;--green-600:#639922;--green-800:#C0DD97;
+  --red-50:#501313;--red-600:#E24B4A;--red-800:#F7C1C1;
+  --gray-50:#2C2C2A;--gray-600:#B4B2A9;--gray-800:#D3D1C7;
+  --bg2:#242422;--text:#e8e6de;--text2:#888780;--bdr:rgba(255,255,255,0.15);--arr:#888780;
+}
+
+/* SVG Diagram styles — exact copy from HTML doc */
+svg.diagram{font-family:'Segoe UI',system-ui,sans-serif;overflow:visible;}
+.nb rect{fill:var(--blue-50);stroke:var(--blue-600);stroke-width:.7;}
+.np rect{fill:var(--purple-50);stroke:var(--purple-600);stroke-width:.7;}
+.nt rect{fill:var(--teal-50);stroke:var(--teal-600);stroke-width:.7;}
+.na rect{fill:var(--amber-50);stroke:var(--amber-600);stroke-width:.7;}
+.nc rect{fill:var(--coral-50);stroke:var(--coral-600);stroke-width:.7;}
+.ng rect{fill:var(--green-50);stroke:var(--green-600);stroke-width:.7;}
+.nr rect{fill:var(--red-50);stroke:var(--red-600);stroke-width:.7;}
+.nz rect{fill:var(--gray-50);stroke:var(--gray-400);stroke-width:.7;}
+.nt-title{font-size:12px;font-weight:500;}
+.nt-sub{font-size:10px;}
+.conn{stroke:var(--arr);stroke-width:1.2;fill:none;marker-end:url(#arr);}
+.conn-b{stroke:#2563EB;stroke-width:1.5;fill:none;marker-end:url(#arrb);}
+.clbl{font-size:10px;fill:var(--text2);}
+.chdr{font-size:12px;font-weight:500;fill:var(--text2);}
+.dmnd{fill:var(--bg2);stroke:var(--blue-400);stroke-width:.8;}
+.box-frame{fill:none;stroke:var(--bdr);stroke-width:.8;stroke-dasharray:5 4;}
+
+.diagram-card{
+  background:var(--bg);border:1px solid var(--bdr);border-radius:12px;padding:20px;overflow-x:auto;
+}
+
 html, body {
   margin: 0;
   padding: 0;

@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Maximize, Download, FileText, Layout, Moon, Sun } from "lucide-react";
+import { FileText, Layout, Moon, Sun, Loader2 } from "lucide-react";
 import { generateEditablePPTX } from "@/lib/exportPptx";
+import { generatePDF } from "@/lib/exportPdf";
 
 // Import all 10 slides
 import Slide1 from "@/components/slides/Slide1";
@@ -11,20 +12,32 @@ import Slide2 from "@/components/slides/Slide2";
 import Slide3 from "@/components/slides/Slide3";
 import Slide4 from "@/components/slides/Slide4";
 import Slide5 from "@/components/slides/Slide5";
-import Slide6 from "@/components/slides/Slide6";
-import Slide7 from "@/components/slides/Slide7";
 import Slide8 from "@/components/slides/Slide8";
-import Slide9 from "@/components/slides/Slide9";
+import Slide7 from "@/components/slides/Slide7";
 import Slide10 from "@/components/slides/Slide10";
 import Slide11 from "@/components/slides/Slide11";
+import SlideArch from "@/components/slides/SlideArch";
+import SlideERD from "@/components/slides/SlideERD";
+import SlideStudentFlow from "@/components/slides/SlideStudentFlow";
+import SlideLecturerFlow from "@/components/slides/SlideLecturerFlow";
+import SlideCompanyFlow from "@/components/slides/SlideCompanyFlow";
+import SlideHodFlow from "@/components/slides/SlideHodFlow";
+import SlideCloFlow from "@/components/slides/SlideCloFlow";
 import Slide12 from "@/components/slides/Slide12";
 
-const slides = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9, Slide10, Slide11, Slide12];
+const slides = [
+  Slide1, Slide2, Slide3, Slide4, Slide5, 
+  Slide8, Slide7, Slide10, Slide11, 
+  SlideArch, SlideERD, SlideStudentFlow, SlideLecturerFlow, SlideCompanyFlow, SlideHodFlow, SlideCloFlow, 
+  Slide12
+];
 
 export default function Presentation() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isExporting, setIsExporting] = useState(false);
+  const [exportType, setExportType] = useState<string | null>(null);
+  const [exportProgress, setExportProgress] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(false);
   const slideRef = useRef<HTMLDivElement>(null);
 
@@ -60,26 +73,36 @@ export default function Presentation() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [goNext, goPrev]);
 
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-    } else {
-      document.exitFullscreen();
+  const exportPDF = async () => {
+    if (isExporting) return;
+    setIsExporting(true);
+    setExportType("PDF");
+    setExportProgress("Preparing slides...");
+    try {
+      await generatePDF(slides, (current, total) => {
+        setExportProgress(`Rendering slide ${current} of ${total}...`);
+      });
+    } catch (e) {
+      console.error("PDF export failed:", e);
     }
-  };
-
-  const exportPDF = () => {
-    window.print();
+    setIsExporting(false);
+    setExportType(null);
+    setExportProgress("");
   };
 
   const exportPPTX = async () => {
+    if (isExporting) return;
     setIsExporting(true);
+    setExportType("PPTX");
+    setExportProgress("Generating PowerPoint...");
     try {
       await generateEditablePPTX();
     } catch (e) {
-      console.error(e);
+      console.error("PPTX export failed:", e);
     }
     setIsExporting(false);
+    setExportType(null);
+    setExportProgress("");
   };
 
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
@@ -99,22 +122,18 @@ export default function Presentation() {
             {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <div className="w-px h-4 bg-border self-center mx-1" />
-          <button onClick={exportPDF} title="Download PDF" className="p-2 hover:bg-muted hover:text-primary rounded-full transition-all text-muted-fg">
+          <button onClick={exportPDF} title="Download PDF" disabled={isExporting} className={`p-2 hover:bg-muted hover:text-primary rounded-full transition-all text-muted-fg ${isExporting && exportType === 'PDF' ? 'animate-pulse text-primary' : ''}`}>
             <FileText size={18} />
           </button>
-          <button onClick={exportPPTX} title="Download PPTX" disabled={isExporting} className={`p-2 hover:bg-muted hover:text-primary rounded-full transition-all text-muted-fg ${isExporting ? 'animate-pulse' : ''}`}>
+          <button onClick={exportPPTX} title="Download PPTX" disabled={isExporting} className={`p-2 hover:bg-muted hover:text-primary rounded-full transition-all text-muted-fg ${isExporting && exportType === 'PPTX' ? 'animate-pulse text-primary' : ''}`}>
             <Layout size={18} />
-          </button>
-          <div className="w-px h-4 bg-border self-center mx-1" />
-          <button onClick={toggleFullscreen} title="Toggle Fullscreen" className="p-2 hover:bg-muted hover:text-primary rounded-full transition-all text-muted-fg">
-            <Maximize size={18} />
           </button>
         </div>
       </div>
 
-      {/* Interaction Zones */}
-      <div className="no-print absolute left-0 top-0 w-32 h-full z-40 cursor-w-resize group" onClick={goPrev} />
-      <div className="no-print absolute right-0 top-0 w-32 h-full z-40 cursor-e-resize group" onClick={goNext} />
+      {/* Interaction Zones — top-20 keeps them below the toolbar */}
+      <div className="no-print absolute left-0 top-20 w-32 bottom-0 z-40 cursor-w-resize" onClick={goPrev} />
+      <div className="no-print absolute right-0 top-20 w-32 bottom-0 z-40 cursor-e-resize" onClick={goNext} />
 
       {/* Main Slide Display (hidden during print) */}
       <div className="main-slide-view w-full h-full" ref={slideRef}>
@@ -133,14 +152,16 @@ export default function Presentation() {
         </AnimatePresence>
       </div>
 
-      {/* Print View: All slides rendered for PDF (hidden on screen, shown on print) */}
-      <div className="print-all-slides" style={{ display: 'none' }}>
-        {slides.map((SlideComponent, index) => (
-          <div key={index} className="print-page">
-            <SlideComponent />
+      {/* Export Progress Overlay */}
+      {isExporting && (
+        <div className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center">
+          <div className="bg-card border border-border rounded-2xl p-8 shadow-2xl flex flex-col items-center gap-4 min-w-[300px]">
+            <Loader2 size={40} className="animate-spin text-primary" />
+            <p className="text-fg font-bold text-lg">Exporting {exportType}...</p>
+            <p className="text-muted-fg text-sm">{exportProgress}</p>
           </div>
-        ))}
-      </div>
+        </div>
+      )}
 
       {/* Bottom Progress Line */}
       <div className="progress-bar no-print absolute bottom-0 left-0 w-full h-1.5 bg-muted">

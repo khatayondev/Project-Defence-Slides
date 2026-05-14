@@ -57,12 +57,33 @@ export default function Slide8() {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
-        {objectives.map((obj, i) => (
-          <motion.div key={i} variants={item} className="flex flex-col bg-card border border-primary/20 rounded-xl p-8 shadow-sm hover:border-primary transition-all hover:-translate-y-2 group">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+        {[
+          {
+            num: "01",
+            title: "Digitize Process",
+            desc: "Eliminate paper logbooks and physical signatures by moving all daily reports and approvals to a single digital platform."
+          },
+          {
+            num: "02",
+            title: "Centralize Data",
+            desc: "Consolidate student, company, and supervisor data for easy access and reporting across all academic units."
+          },
+          {
+            num: "03",
+            title: "Real-Time Monitoring",
+            desc: "Provide real-time notifications and GPS-based presence verification for students and supervisors."
+          },
+          {
+            num: "04",
+            title: "Analytics & Exports",
+            desc: "Generate comprehensive analytics and exportable reports (PDF/CSV) for institutional use and accreditation."
+          }
+        ].map((obj, i) => (
+          <motion.div key={i} variants={item} className="flex flex-col bg-card border border-primary/20 rounded-xl p-8 shadow-sm hover:border-primary transition-all hover:-translate-y-2 group h-full">
             <div className="text-primary font-black text-5xl mb-4 opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all origin-left">{obj.num}</div>
             <h3 className="text-xl font-bold text-fg mb-3">{obj.title}</h3>
-            <p className="text-xl text-muted-fg leading-relaxed">{obj.desc}</p>
+            <p className="text-lg text-muted-fg leading-relaxed">{obj.desc}</p>
           </motion.div>
         ))}
       </div>

@@ -57,7 +57,13 @@ export default function Slide10() {
           </div>
           
           <div className="space-y-6 relative z-10">
-            {stack.map((t, i) => (
+            {[
+              { label: "Backend", val: "Laravel (PHP) + REST API" },
+              { label: "Frontend", val: "Next.js (React) + PWA (Mobile Ready)" },
+              { label: "Database", val: "PostgreSQL / MySQL" },
+              { label: "Mapping", val: "Google Location / Maps API" },
+              { label: "Infrastructure", val: "Docker Containerization" },
+            ].map((t, i) => (
               <div key={i} className="flex flex-col border-b border-primary/20 pb-4 last:border-0 last:pb-0 hover:translate-x-2 transition-transform">
                 <span className="text-sm font-bold text-primary uppercase tracking-wider mb-1">{t.label}</span>
                 <span className="text-2xl font-semibold text-fg">{t.val}</span>

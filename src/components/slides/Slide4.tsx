@@ -30,43 +30,59 @@ export default function Slide4() {
         <h2 className="text-4xl font-extrabold text-fg tracking-tight">Introduction</h2>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 w-full h-full">
-        <motion.div variants={item} className="flex flex-col gap-6">
-          <div className="inline-block bg-accent text-accent-fg font-bold px-4 py-2 rounded-md uppercase tracking-wider text-sm shadow-sm w-fit border border-primary/20">
-            Background
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full h-full pt-4">
+        <motion.div variants={item} className="flex flex-col gap-8">
+          <div className="flex flex-col gap-4">
+            <p className="text-primary text-sm uppercase tracking-[0.2em] font-black border-l-4 border-primary pl-4">
+              Project Overview
+            </p>
+            <h3 className="text-4xl font-black text-fg leading-tight">
+              Transforming the University Attachment Lifecycle
+            </h3>
+            <p className="text-2xl text-muted-fg leading-relaxed">
+              HTU IAMS is a central hub for <span className="text-primary font-bold">CLOs, DLOs, students, lecturers, and company supervisors</span> to connect and monitor internship progress in real-time.
+            </p>
           </div>
-          <p className="text-3xl leading-relaxed text-fg font-medium">
-            Every HTU undergraduate must complete a mandatory industrial attachment before graduating, a requirement governed by Ghana's TVET framework.
-          </p>
-          <p className="text-2xl leading-relaxed text-muted-fg mt-4">
-            The attachment places students in real companies, exposing them to practical skills and professional environments that classroom instruction cannot fully replicate.
-          </p>
+          
+          <div className="grid grid-cols-1 gap-4 mt-4">
+            {[
+              { title: "Digital Logbooks", desc: "Daily task reporting & digital approvals" },
+              { title: "Presence Verification", desc: "GPS geofencing for on-site monitoring" },
+              { title: "Accreditation Tools", desc: "Comprehensive analytics & PDF/CSV exports" }
+            ].map((feature, i) => (
+              <div key={i} className="bg-card border border-primary/10 p-6 rounded-2xl shadow-sm hover:border-primary/30 transition-colors">
+                <p className="font-black text-primary text-lg mb-1">{feature.title}</p>
+                <p className="text-muted-fg font-medium">{feature.desc}</p>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
-        <motion.div variants={item} className="bg-card border border-primary/20 rounded-2xl p-10 shadow-sm relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full" />
-          
-          <div className="inline-block bg-primary text-primary-fg font-bold px-4 py-2 rounded-md uppercase tracking-wider text-sm shadow-sm w-fit mb-8">
-            Theoretical Grounding: Kolb (1984)
-          </div>
-          
-          <p className="text-2xl text-fg mb-6 font-medium relative z-10">
-            Kolb's Experiential Learning Theory underpins the requirement. Deep competence develops through a four-stage cycle:
-          </p>
-          
-          <ul className="space-y-4 mb-8 relative z-10">
-            {["Concrete experience", "Reflective observation", "Abstract conceptualisation", "Active experimentation"].map((text, i) => (
-              <li key={i} className="flex items-center gap-4 text-2xl font-semibold text-fg">
-                <span className="w-2.5 h-2.5 rounded-full bg-primary shadow-sm shadow-primary" />
-                {text}
-              </li>
-            ))}
-          </ul>
-          
-          <div className="p-5 bg-accent/50 rounded-xl border border-primary/30 relative z-10">
-            <p className="text-xl text-fg font-medium">
-              A workplace placement sustains this full cycle over weeks or months. A classroom can only briefly invoke it.
-            </p>
+        <motion.div variants={item} className="flex flex-col">
+          <div className="bg-primary/5 border border-primary/20 rounded-3xl p-8 relative overflow-hidden h-full flex flex-col justify-center">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10" />
+            
+            <h4 className="text-2xl font-black text-fg mb-8 flex items-center gap-3">
+              <span className="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center text-base">★</span>
+              Key Stakeholders
+            </h4>
+            
+            <div className="space-y-6">
+              {[
+                { role: "Students", detail: "Digital logbooks & daily task tracking" },
+                { role: "Lecturers", detail: "Internal supervision & academic grading" },
+                { role: "Companies", detail: "External oversight & performance feedback" },
+                { role: "Administrators", detail: "Placement management & data analytics" }
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-5">
+                  <div className="w-2 h-2 rounded-full bg-primary mt-3 flex-shrink-0" />
+                  <div>
+                    <p className="font-bold text-fg text-xl">{item.role}</p>
+                    <p className="text-muted-fg text-lg">{item.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>

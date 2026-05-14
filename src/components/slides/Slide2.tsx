@@ -42,7 +42,7 @@ export default function Slide2() {
               <span className="w-2 h-2 rounded-full bg-primary" />
               Academic Supervisor
             </p>
-            <p className="font-bold text-fg text-2xl">[Supervisor Name]</p>
+            <p className="font-bold text-fg text-2xl">Carlos Ankora & Anthony Kingsley Sackey</p>
           </div>
           
           <div>
@@ -52,22 +52,22 @@ export default function Slide2() {
             </p>
             <div className="grid grid-cols-1 gap-y-2 text-base">
               <p className="font-bold text-fg flex justify-between items-center bg-card px-3 py-2 rounded-lg border border-primary/10 shadow-sm hover:scale-[1.02] transition-transform">
-                <span>Daniel Gbegbeawu</span> <span className="text-primary font-black text-sm">0322080457</span>
-              </p>
-              <p className="font-bold text-fg flex justify-between items-center bg-card px-3 py-2 rounded-lg border border-primary/10 shadow-sm hover:scale-[1.02] transition-transform">
-                <span>Gohoho Shanita Eyram</span> <span className="text-primary font-black text-sm">0322080294</span>
-              </p>
-              <p className="font-bold text-fg flex justify-between items-center bg-card px-3 py-2 rounded-lg border border-primary/10 shadow-sm hover:scale-[1.02] transition-transform">
-                <span>Gabriel Demordzie Asampana</span> <span className="text-primary font-black text-sm">0322080295</span>
-              </p>
-              <p className="font-bold text-fg flex justify-between items-center bg-card px-3 py-2 rounded-lg border border-primary/10 shadow-sm hover:scale-[1.02] transition-transform">
-                <span>Emmanuel Adedoyin Ajao</span> <span className="text-primary font-black text-sm">0322080236</span>
-              </p>
-              <p className="font-bold text-fg flex justify-between items-center bg-card px-3 py-2 rounded-lg border border-primary/10 shadow-sm hover:scale-[1.02] transition-transform">
-                <span>Edzia Emmanuel K. Korshie</span> <span className="text-primary font-black text-sm">0322080275</span>
-              </p>
-              <p className="font-bold text-fg flex justify-between items-center bg-card px-3 py-2 rounded-lg border border-primary/10 shadow-sm hover:scale-[1.02] transition-transform">
                 <span>Sadick Issaka</span> <span className="text-primary font-black text-sm">0322080383</span>
+              </p>
+              <p className="font-bold text-fg flex justify-between items-center bg-card px-3 py-2 rounded-lg border border-primary/10 shadow-sm hover:scale-[1.02] transition-transform">
+                <span>Daniel Gbegbeawo</span> <span className="text-primary font-black text-sm">0322080457</span>
+              </p>
+              <p className="font-bold text-fg flex justify-between items-center bg-card px-3 py-2 rounded-lg border border-primary/10 shadow-sm hover:scale-[1.02] transition-transform">
+                <span>Emmanuel Ajao</span> <span className="text-primary font-black text-sm">0322080236</span>
+              </p>
+              <p className="font-bold text-fg flex justify-between items-center bg-card px-3 py-2 rounded-lg border border-primary/10 shadow-sm hover:scale-[1.02] transition-transform">
+                <span>Gabriel Asampana Demordzie</span> <span className="text-primary font-black text-sm">0322080295</span>
+              </p>
+              <p className="font-bold text-fg flex justify-between items-center bg-card px-3 py-2 rounded-lg border border-primary/10 shadow-sm hover:scale-[1.02] transition-transform">
+                <span>Emmanuel Kafui Edzia</span> <span className="text-primary font-black text-sm">0322080275</span>
+              </p>
+              <p className="font-bold text-fg flex justify-between items-center bg-card px-3 py-2 rounded-lg border border-primary/10 shadow-sm hover:scale-[1.02] transition-transform">
+                <span>Shanita Gohoho</span> <span className="text-primary font-black text-sm">0322080294</span>
               </p>
             </div>
           </div>

@@ -17,10 +17,10 @@ const item = {
 
 export default function Slide3() {
   const agenda = [
-    { num: "01", title: "Introduction", desc: "Background and Theoretical Framework" },
+    { num: "01", title: "Overview", desc: "Background and Project Motivation" },
     { num: "02", title: "Problem Statement", desc: "Key Weaknesses in Current Process" },
     { num: "03", title: "Aim & Objectives", desc: "Project Goals and Core Scope" },
-    { num: "04", title: "Methodology", desc: "Development Approach and Technology Stack" },
+    { num: "04", title: "System Design", desc: "Architecture, ERD, and User Flows" },
   ];
 
   return (
