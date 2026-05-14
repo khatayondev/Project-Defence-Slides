@@ -7,12 +7,20 @@ const MUTED = "6B7280";
 const ACCENT = "E3F3FF";
 
 async function imageToBase64(url: string): Promise<string> {
-  const resp = await fetch(url);
-  const blob = await resp.blob();
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result as string);
-    reader.readAsDataURL(blob);
+  return new Promise((resolve, reject) => {
+    const img = new window.Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) { reject("No canvas context"); return; }
+      ctx.drawImage(img, 0, 0);
+      resolve(canvas.toDataURL("image/png"));
+    };
+    img.onerror = () => reject("Image load failed: " + url);
+    img.src = url;
   });
 }
 
@@ -21,8 +29,13 @@ export async function generateEditablePPTX() {
   pptx.layout = "LAYOUT_16x9";
   pptx.theme = { bodyFontFace: "Arial" };
 
-  // Pre-load logo as base64
-  const logoBase64 = await imageToBase64("/htu-logo.png");
+  // Pre-load logo as base64 data URI
+  let logoBase64: string | null = null;
+  try {
+    logoBase64 = await imageToBase64("/htu-logo.png");
+  } catch (e) {
+    console.warn("Could not load logo for PPTX:", e);
+  }
 
   // Helper for slide titles
   const addHeader = (slide: PptxGenJS.Slide, num: string, title: string, subtitle?: string) => {
@@ -39,7 +52,7 @@ export async function generateEditablePPTX() {
   // SLIDE 1: Cover
   const s1 = pptx.addSlide();
   s1.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 13.33, h: 0.1, fill: { color: DONEZO_BLUE } });
-s1.addImage({ data: logoBase64, x: 5.67, y: 0.5, w: 2, h: 2 });
+  if (logoBase64) s1.addImage({ data: logoBase64, x: 5.67, y: 0.5, w: 2, h: 2 });
   s1.addText("HO TECHNICAL UNIVERSITY", { x: 1, y: 2.0, w: 11.33, h: 0.5, color: DONEZO_BLUE, fontSize: 20, bold: true, align: "center" });
   s1.addText("Faculty of Applied Sciences and Technology\nBachelor of Technology in Computer Science", { x: 1, y: 2.5, w: 11.33, h: 1, color: MUTED, fontSize: 16, align: "center" });
   s1.addText("Industrial Attachment Management System", { x: 1, y: 3.7, w: 11.33, h: 1.5, color: FG_DARK, fontSize: 56, bold: true, align: "center" });
@@ -48,7 +61,7 @@ s1.addImage({ data: logoBase64, x: 5.67, y: 0.5, w: 2, h: 2 });
 
   // SLIDE 2: Team & Dashboard
   const s2 = pptx.addSlide();
-  s2.addImage({ data: logoBase64, x: 0.5, y: 0.5, w: 0.8, h: 0.8 });
+  if (logoBase64) s2.addImage({ data: logoBase64, x: 0.5, y: 0.5, w: 0.8, h: 0.8 });
   s2.addText("Project Defense Team", { x: 1.5, y: 0.5, w: 8, h: 0.8, color: FG_DARK, fontSize: 32, bold: true, valign: "middle" });
   s2.addShape(pptx.ShapeType.line, { x: 0.5, y: 1.8, w: 12.3, h: 0, line: { color: DONEZO_BLUE, width: 1 } });
   s2.addText("Academic Supervisor", { x: 0.5, y: 2.2, w: 5.5, h: 0.4, color: DONEZO_BLUE, fontSize: 14, bold: true });
@@ -244,7 +257,7 @@ s1.addImage({ data: logoBase64, x: 5.67, y: 0.5, w: 2, h: 2 });
   // SLIDE 12: Thank You
   const s12 = pptx.addSlide();
   s12.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: "100%", h: "100%", fill: { color: DONEZO_BLUE } });
-  s12.addImage({ data: logoBase64, x: 5.67, y: 0.3, w: 2, h: 2 });
+  if (logoBase64) s12.addImage({ data: logoBase64, x: 5.67, y: 0.3, w: 2, h: 2 });
   s12.addText("Thank You", { x: 0.5, y: 1.5, w: 12.3, h: 1.5, color: FG_LIGHT, fontSize: 80, bold: true, align: "center" });
   s12.addText("We welcome your questions.", { x: 0.5, y: 3.0, w: 12.3, h: 0.5, color: "E3F3FF", fontSize: 24, align: "center" });
   

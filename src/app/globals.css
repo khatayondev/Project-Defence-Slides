@@ -77,7 +77,7 @@ html, body {
 }
 
 .slide-container {
-  @apply relative w-full h-full flex flex-col p-12 md:p-20 overflow-hidden transition-colors duration-500 bg-bg text-fg;
+  @apply relative w-full h-full flex flex-col p-8 md:p-14 overflow-hidden transition-colors duration-500 bg-bg text-fg;
 }
 
 /* Print styles for PDF export */
