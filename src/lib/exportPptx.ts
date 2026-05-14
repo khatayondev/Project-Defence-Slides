@@ -236,7 +236,7 @@ export async function generateEditablePPTX() {
   s12.addText("We welcome your questions.", { x: 0.5, y: 3.0, w: 12.3, h: 0.5, color: "E3F3FF", fontSize: 24, align: "center" });
   
   const addStatCard = (x: number, num: string, label: string) => {
-    s12.addShape(pptx.ShapeType.rect, { x, y: 4, w: 3.5, h: 2, fill: { color: "FFFFFF" }, roundness: 0.2 });
+    s12.addShape(pptx.ShapeType.rect, { x, y: 4, w: 3.5, h: 2, fill: { color: "FFFFFF" } });
     s12.addText(num, { x, y: 4.2, w: 3.5, h: 0.8, color: DONEZO_BLUE, fontSize: 40, bold: true, align: "center" });
     s12.addText(label, { x: 0.2 + x, y: 5.0, w: 3.1, h: 0.6, color: MUTED, fontSize: 10, bold: true, align: "center" });
   };

@@ -12,7 +12,7 @@ const container = {
 
 const item = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 15 } },
+  show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 100, damping: 15 } },
 };
 
 export default function Slide5() {
@@ -60,7 +60,7 @@ export default function Slide5() {
             key={i} 
             variants={{
               hidden: { opacity: 0, y: 30 },
-              show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 15 } }
+              show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 100, damping: 15 } }
             }} 
             className="flex h-full group"
           >
