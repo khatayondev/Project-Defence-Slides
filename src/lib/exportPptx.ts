@@ -65,12 +65,12 @@ export async function generateEditablePPTX() {
   s2.addText("Carlos Ankora & Anthony Kingsley Sackey", { x: 0.4, y: 1.8, w: 5, h: 0.4, color: DARK, fontSize: 16, bold: true });
   s2.addText("Presented By", { x: 0.4, y: 2.5, w: 5, h: 0.3, color: BLUE, fontSize: 10, bold: true });
   const team = [
-    { n: "Sadick Issaka", id: "0322080383" },
-    { n: "Daniel Gbegbeawo", id: "0322080457" },
-    { n: "Emmanuel Ajao", id: "0322080236" },
-    { n: "Gabriel Asampana Demordzie", id: "0322080295" },
-    { n: "Emmanuel Edzia", id: "0322080275" },
-    { n: "Shanita Gohoho", id: "0322080294" }
+    { n: "Daniel Gbegbeawu", id: "0322080457" },
+    { n: "Gohoho Shanita Eyram", id: "0322080294" },
+    { n: "Gabriel Demordzie Asampana", id: "0322080295" },
+    { n: "Emmanuel Adedoyin Ajao", id: "0322080236" },
+    { n: "Edzia Emmanuel Kafui Korshie", id: "0322080275" },
+    { n: "Sadick Issaka", id: "0322080383" }
   ];
   team.forEach((t, i) => {
     const y = 2.9 + i * 0.42;
