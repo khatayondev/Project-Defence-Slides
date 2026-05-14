@@ -83,28 +83,49 @@ html, body {
 /* Print styles for PDF export */
 @media print {
   @page {
-    size: 11in 8.5in; /* Standard US Letter Landscape, forces landscape in Chrome */
+    size: landscape;
     margin: 0;
   }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
   html, body {
-    width: 11in;
-    height: 8.5in;
+    width: 100% !important;
+    height: auto !important;
     overflow: visible !important;
     background: white !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+    margin: 0 !important;
+    padding: 0 !important;
   }
   .no-print {
     display: none !important;
   }
+  /* Hide the interactive single-slide view */
+  .main-slide-view {
+    display: none !important;
+  }
+  /* Hide the progress bar */
+  .progress-bar {
+    display: none !important;
+  }
+  /* Show the print view */
+  .print-all-slides {
+    display: block !important;
+  }
   .print-page {
     page-break-after: always;
     page-break-inside: avoid;
-    width: 11in;
-    height: 8.5in;
+    width: 100vw;
+    height: 100vh;
     display: flex !important;
     visibility: visible !important;
     position: relative;
     overflow: hidden;
+    background: white;
+  }
+  .print-page:last-child {
+    page-break-after: auto;
   }
 }

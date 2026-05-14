@@ -116,8 +116,8 @@ export default function Presentation() {
       <div className="no-print absolute left-0 top-0 w-32 h-full z-40 cursor-w-resize group" onClick={goPrev} />
       <div className="no-print absolute right-0 top-0 w-32 h-full z-40 cursor-e-resize group" onClick={goNext} />
 
-      {/* Main Slide Display */}
-      <div className="w-full h-full" ref={slideRef}>
+      {/* Main Slide Display (hidden during print) */}
+      <div className="main-slide-view w-full h-full" ref={slideRef}>
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentSlide}
@@ -133,17 +133,17 @@ export default function Presentation() {
         </AnimatePresence>
       </div>
 
-      {/* Print View (Hidden normally, shown in print) */}
-      <div className="hidden print:block">
-        {slides.map((Slide, index) => (
-          <div key={index} className="print-page bg-white text-black p-12">
-            <Slide />
+      {/* Print View: All slides rendered for PDF (hidden on screen, shown on print) */}
+      <div className="print-all-slides" style={{ display: 'none' }}>
+        {slides.map((SlideComponent, index) => (
+          <div key={index} className="print-page">
+            <SlideComponent />
           </div>
         ))}
       </div>
 
       {/* Bottom Progress Line */}
-      <div className="no-print absolute bottom-0 left-0 w-full h-1.5 bg-muted">
+      <div className="progress-bar no-print absolute bottom-0 left-0 w-full h-1.5 bg-muted">
         <motion.div 
           className="h-full bg-primary"
           initial={{ width: 0 }}
